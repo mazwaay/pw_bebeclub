@@ -35,3 +35,6 @@ jobs:
 
       - name: Run Playwright script
         run: python telegramReports/pwlogin_tele.py
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}

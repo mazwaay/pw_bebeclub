@@ -5,8 +5,9 @@ import datetime
 from playwright.async_api import async_playwright
 import asyncio
 
-TELEGRAM_TOKEN = "7508251394:AAEqd-5ELgldjPBftjcLHFvkMe3jXh8tLro"  # Ganti dengan token bot Telegram Anda
-CHAT_ID = "5105513935"  # Ganti dengan chat ID Anda
+# Ambil token dan chat ID dari GitHub Secrets
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")  # Mengambil dari secret
+CHAT_ID = os.getenv("CHAT_ID")  # Mengambil dari secret
 
 def send_telegram_message(text, chat_id=CHAT_ID):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
