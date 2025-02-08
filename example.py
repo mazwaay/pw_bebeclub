@@ -1,15 +1,43 @@
-from playwright.sync_api import sync_playwright
-import time
+from playwright.async_api import async_playwright
 
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
-    page = browser.new_page()
-    page.goto("https://example.com")
-    page.locator("text=")
+import asyncio
 
-    # Membuat locator
-    element = page.locator("text=More information")
-    element.click()
+async def open_bebeclub():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False, args=["--start-maximized"])
+        context = await browser.new_context(no_viewport=True)
+        page = await context.new_page()
 
-    time.sleep(5000)
-    # browser.close()
+        try:
+            await page.goto("https://bebeclub.co.id")
+            print("Website bebeclub.co.id berhasil dibuka.")
+
+            await page.locator("text=Aktifkan Semua Cookie").click()
+            print("Button Cookies berhasil diklik.")
+
+            await page.click("div[class='wrapper-not-logged-in'] a[class='btn-login']")
+            print("Button Masuk header diklik.")
+
+            await page.fill("input[name='username-login-password']", "081310096543")
+            print("Nomor HP berhasil diinput.")
+
+            await page.fill("input[id='password-login-password']", "Password1!")
+            print("Password berhasil diinput.")
+
+            await page.click("#loginPasswordAction")
+            print("Button Login berhasil diklik.")
+
+            await page.wait_for_selector("text=Login Berhasil")
+            print("Berhasil login ke bebeclub.co.id.")
+
+            await page.screenshot(path="screenshot.png", full_page=True)
+
+        except Exception as e:
+            print(f"Terjadi kesalahan: {e}")
+
+        finally:
+            await browser.close()
+            print("Browser ditutup.")
+
+if __name__ == "__main__":
+    asyncio.run(open_bebeclub())
