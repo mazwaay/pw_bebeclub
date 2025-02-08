@@ -1,0 +1,22 @@
+# File environment
+.env
+.env.local
+
+# Folder virtual environment
+venv/
+.env/
+.venv/
+
+# File cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# File build
+dist/
+build/
+*.egg-info/
+
+# File log
+*.log

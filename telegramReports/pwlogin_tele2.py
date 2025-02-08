@@ -91,7 +91,7 @@ async def open_bebeclub():
             print(f"Screenshot tersimpan: {screenshot_filename}")
             
             # Kirim laporan ke Telegram
-            message = f"**Tes Playwright: {report['status']}**\n"
+            message = f"**Login dengan password: {report['status']}**\n"
             message += f"Timestamp: {report['timestamp']}\n"
             message += "\nLangkah-langkah:\n" + "\n".join(report["steps"])
 
