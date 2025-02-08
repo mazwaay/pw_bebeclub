@@ -4,8 +4,12 @@ import os
 import datetime
 from playwright.async_api import async_playwright
 import asyncio
+from dotenv import load_dotenv
 
 # Ambil token dan chat ID dari GitHub Secrets
+
+load_dotenv()
+
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")  # Mengambil dari secret
 CHAT_ID = os.getenv("CHAT_ID")  # Mengambil dari secret
 
@@ -43,8 +47,8 @@ async def open_bebeclub():
             await page.goto("https://bebeclub.co.id")
             report["steps"].append("Website bebeclub.co.id berhasil dibuka.")
             
-            # await page.locator("text=Aktifkan Semua Cookie").click()
-            # report["steps"].append("Button Cookies berhasil diklik.")
+            await page.locator("text=Aktifkan Semua Cookie").click()
+            report["steps"].append("Button Cookies berhasil diklik.")
 
             await page.click("div[class='wrapper-not-logged-in'] a[class='btn-login']")
             report["steps"].append("Button Masuk header diklik.")
