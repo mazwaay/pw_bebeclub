@@ -23,6 +23,7 @@ jobs:
           pip install playwright
           playwright install
           pip install requests
+          pip install requests playwright python-dotenv
 
       - name: Print working directory
         run: pwd
