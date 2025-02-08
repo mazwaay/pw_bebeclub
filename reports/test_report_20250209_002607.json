@@ -1,0 +1,9 @@
+{
+    "timestamp": "20250209_002607",
+    "steps": [
+        "Website bebeclub.co.id berhasil dibuka.",
+        "Browser ditutup."
+    ],
+    "status": "failed",
+    "error": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"text=Aktifkan Semua Cookie\")\n"
+}

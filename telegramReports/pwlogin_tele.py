@@ -5,8 +5,8 @@ import datetime
 from playwright.async_api import async_playwright
 import asyncio
 
-TELEGRAM_TOKEN = "YOUR_BOT_TOKEN"  # Ganti dengan token bot Telegram Anda
-CHAT_ID = "YOUR_CHAT_ID"  # Ganti dengan chat ID Anda
+TELEGRAM_TOKEN = "7508251394:AAEqd-5ELgldjPBftjcLHFvkMe3jXh8tLro"  # Ganti dengan token bot Telegram Anda
+CHAT_ID = "5105513935"  # Ganti dengan chat ID Anda
 
 def send_telegram_message(text, chat_id=CHAT_ID):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
@@ -42,8 +42,8 @@ async def open_bebeclub():
             await page.goto("https://bebeclub.co.id")
             report["steps"].append("Website bebeclub.co.id berhasil dibuka.")
             
-            await page.locator("text=Aktifkan Semua Cookie").click()
-            report["steps"].append("Button Cookies berhasil diklik.")
+            # await page.locator("text=Aktifkan Semua Cookie").click()
+            # report["steps"].append("Button Cookies berhasil diklik.")
 
             await page.click("div[class='wrapper-not-logged-in'] a[class='btn-login']")
             report["steps"].append("Button Masuk header diklik.")

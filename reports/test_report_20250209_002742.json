@@ -1,0 +1,13 @@
+{
+    "timestamp": "20250209_002742",
+    "steps": [
+        "Website bebeclub.co.id berhasil dibuka.",
+        "Button Masuk header diklik.",
+        "Nomor HP berhasil diinput.",
+        "Password berhasil diinput.",
+        "Button Login berhasil diklik.",
+        "Browser ditutup."
+    ],
+    "status": "failed",
+    "error": "Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"text=Login Berhasil\") to be visible\n"
+}
