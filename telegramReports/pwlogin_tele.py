@@ -34,7 +34,7 @@ async def open_bebeclub():
     }
     
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False, args=["--start-maximized"])
+        browser = await p.chromium.launch(headless=True, args=["--start-maximized"])
         context = await browser.new_context(no_viewport=True)
         page = await context.new_page()
 
