@@ -24,6 +24,12 @@ jobs:
           playwright install
           pip install requests
 
+      - name: Print working directory
+        run: pwd
+
+      - name: List directory contents
+        run: ls -la
+
       - name: Verify file existence
         run: ls -la telegramReports/pwlogin_tele.py
 
