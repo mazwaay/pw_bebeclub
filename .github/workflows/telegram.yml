@@ -25,4 +25,4 @@ jobs:
           pip install requests  # Untuk kirim pesan ke Telegram
 
       - name: Run Playwright script
-        run: pwlogin_tele.py  # Ganti dengan nama file Python Anda
+        run: telegramReports\pwlogin_tele.py  # Ganti dengan nama file Python Anda
