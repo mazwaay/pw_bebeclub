@@ -1,0 +1,14 @@
+{
+    "timestamp": "20250209_004826",
+    "steps": [
+        "Website bebeclub.co.id berhasil dibuka.",
+        "Button Masuk header diklik.",
+        "Nomor HP berhasil diinput.",
+        "Password berhasil diinput.",
+        "Button Login berhasil diklik.",
+        "Berhasil login ke bebeclub.co.id.",
+        "Browser ditutup."
+    ],
+    "status": "success",
+    "screenshot": "reports/screenshot_20250209_004826.png"
+}

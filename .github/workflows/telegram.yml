@@ -22,7 +22,10 @@ jobs:
         run: |
           pip install playwright
           playwright install
-          pip install requests  # Untuk kirim pesan ke Telegram
+          pip install requests
+
+      - name: Verify file existence
+        run: ls -la telegramReports/pwlogin_tele.py
 
       - name: Run Playwright script
-        run: python telegramReports\pwlogin_tele.py  # Ganti dengan nama file Python Anda
+        run: python telegramReports/pwlogin_tele.py
