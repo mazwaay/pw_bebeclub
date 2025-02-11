@@ -6,12 +6,10 @@ from playwright.async_api import async_playwright
 import asyncio
 from dotenv import load_dotenv
 
-# Ambil token dan chat ID dari GitHub Secrets
-
 load_dotenv()
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")  # Mengambil dari secret
-CHAT_ID = os.getenv("CHAT_ID")  # Mengambil dari secret
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 def send_telegram_message(text, chat_id=CHAT_ID):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
@@ -23,11 +21,9 @@ def send_telegram_message(text, chat_id=CHAT_ID):
     return response
 
 async def open_bebeclub():
-    # Membuat folder reports jika belum ada
     report_folder = "reports"
     os.makedirs(report_folder, exist_ok=True)
 
-    # Format timestamp untuk nama file
     timestamp = datetime.datetime.now().strftime("%d%m%Y_%H%M%S")
     report_filename = f"{report_folder}/test_report_{timestamp}.json"
     screenshot_filename = f"{report_folder}/screenshot_{timestamp}.png"
