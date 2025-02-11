@@ -7,6 +7,7 @@ telegramReports/rahasia.env
 venv/
 .env/
 .venv/
+reports/
 
 # File cache
 __pycache__/
