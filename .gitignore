@@ -2,6 +2,7 @@
 telegramReports/rahasia.env
 .env
 .env.local
+debug_kedebug.py
 
 # Folder virtual environment
 venv/

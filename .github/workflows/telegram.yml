@@ -2,7 +2,7 @@ name: Playwright CI with Telegram Reporting
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # Eksekusi setiap hari jam 10 WIB (03:00 UTC)
+    - cron: '0 23 * * *'  # Eksekusi setiap hari jam 06 WIB (23:00 UTC)
   workflow_dispatch:  # Memungkinkan eksekusi manual
 
 jobs:
@@ -34,14 +34,26 @@ jobs:
       - name: Verify file existence
         run: ls -la telegramReports/
 
-      - name: Run Playwright script 1
-        run: python telegramReports/pwlogin_tele.py
+      - name: Login with Password
+        run: python telegramReports/login_password.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
 
-      - name: Run Playwright script 2
-        run: python telegramReports/pwlogin_tele2.py
+      - name: Login only input phone number
+        run: python telegramReports/login_only_input_phoneNumber.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
+      - name: Login only input password
+        run: python telegramReports/login_only_input_password.py
+        env:
+            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+            CHAT_ID: ${{ secrets.CHAT_ID }}
+            PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+            PASSWORD: ${{ secrets.PASSWORD }}
