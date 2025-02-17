@@ -6,14 +6,10 @@ from playwright.async_api import async_playwright
 import asyncio
 from dotenv import load_dotenv
 
-# Ambil token dan chat ID dari GitHub Secrets
-
 load_dotenv()
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")  # Mengambil dari secret
-CHAT_ID = os.getenv("CHAT_ID")  # Mengambil dari secret
-PHONE_NUMBER = os.getenv("PHONE_NUMBER")  # Mengambil dari secret
-PASSWORD = os.getenv("PASSWORD")  # Mengambil dari secret
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 def send_telegram_message(text, chat_id=CHAT_ID):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
@@ -23,14 +19,22 @@ def send_telegram_message(text, chat_id=CHAT_ID):
     }
     response = requests.post(url, data=payload)
     return response
-    
+
+def send_telegram_photo(photo_path, chat_id=CHAT_ID, caption=""):
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
+    with open(photo_path, "rb") as photo:
+        files = {"photo": photo}
+        payload = {
+            "chat_id": chat_id,
+            "caption": caption
+        }
+        response = requests.post(url, files=files, data=payload)
+    return response
 
 async def open_bebeclub():
-    # Membuat folder reports jika belum ada
     report_folder = "reports.local"
     os.makedirs(report_folder, exist_ok=True)
 
-    # Format timestamp untuk nama file
     timestamp = datetime.datetime.now().strftime("%d%m%Y_%H%M%S")
     report_filename = f"{report_folder}/test_report_{timestamp}.json"
     screenshot_filename = f"{report_folder}/screenshot_{timestamp}.png"
@@ -43,7 +47,7 @@ async def open_bebeclub():
     
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--start-maximized"])
-        context = await browser.new_context(no_viewport=False)
+        context = await browser.new_context(no_viewport=True)
         page = await context.new_page()
 
         try:
@@ -104,6 +108,16 @@ async def open_bebeclub():
 
             # Kirim pesan ke Telegram
             send_telegram_message(message)
+
+            # Kirim screenshot dengan langkah-langkah ke Telegram
+            if os.path.exists(screenshot_filename):
+                # Ubah langkah-langkah jadi caption
+                caption_steps = "\n".join([f"{idx+1}. {step}" for idx, step in enumerate(report["steps"])])
+                caption = f"Screenshot hasil tes: {report['status']}\nLangkah-langkah:\n{caption_steps}"
+                
+                # Kirim gambar dengan caption yang sudah diubah
+                response = send_telegram_photo(screenshot_filename, caption=caption)
+                print("Status kirim foto:", response.status_code)
 
 if __name__ == "__main__":
     asyncio.run(open_bebeclub())
