@@ -50,8 +50,9 @@ async def open_bebeclub():
     }
     
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True, args=["--start-maximized"])
-        context = await browser.new_context(no_viewport=True)
+        browser = await p.chromium.launch(headless=True)
+        # context = await browser.new_context(no_viewport=False)
+        context = await browser.new_context(viewport={"width": 1920, "height": 1080}) # Mengubah ukuran viewport
         page = await context.new_page()
 
         try:
@@ -109,7 +110,7 @@ async def open_bebeclub():
             if os.path.exists(screenshot_filename):
                 # Ubah langkah-langkah jadi caption
                 caption_steps = "\n".join([f"{idx+1}. {step}" for idx, step in enumerate(report["steps"])])
-                caption = f"Login hanya input phone number: {report['status']}\nLangkah-langkah:\n{caption_steps}"
+                caption = f"Login only input phone number: {report['status']}\nLangkah-langkah:\n{caption_steps}"
                 
                 # Kirim gambar dengan caption yang sudah diubah
                 response = send_telegram_photo(screenshot_filename, caption=caption)
