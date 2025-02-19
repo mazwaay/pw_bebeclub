@@ -31,7 +31,7 @@ def send_telegram_photo(photo_path, chat_id=CHAT_ID, caption=""):
         payload = {
             "chat_id": chat_id,
             "caption": caption,
-            "parse_mode": "Markdown"
+            "parse_mode": "Markdown"  # Menambahkan parse_mode untuk menggunakan Markdown
         }
         response = requests.post(url, files=files, data=payload)
     return response
@@ -48,13 +48,13 @@ async def open_bebeclub():
     report = {
         "timestamp": timestamp,
         "steps": [],
-        "status": "*success*"
+        "status": "*success*"  # Menambahkan * untuk teks tebal
     }
-    
+
     # Start code here
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context(viewport={"width": 1920, "height": 1080}) # view port size
+        context = await browser.new_context(viewport={"width": 1920, "height": 1080}) # Mengubah ukuran viewport
         page = await context.new_page()
 
         try:
@@ -63,22 +63,30 @@ async def open_bebeclub():
             print("Open the bebeclub website.")
             
             await page.locator("text=Aktifkan Semua Cookie").click()
-            report["steps"].append("Click the Aktifkan Semua Cookie button.")
-            print("Click the Aktifkan Semua Cookie button.")
+            report["steps"].append("Click the Cookies button.")
+            print("Click the Cookies button.")
 
             await page.click("div[class='wrapper-not-logged-in'] a[class='btn-login']")
             report["steps"].append("Click the login button.")
             print("Click the login button.")
 
-            await page.fill("input[name='password-login-password']", PASSWORD)
-            report["steps"].append("Input the password.")
-            print("Input the password.")
+            await page.fill("input[name='username-login-password']", "08998897456278")
+            report["steps"].append("Input the phone number.")
+            print("Input the phone number.")
 
-            button = await page.locator('//*[@id="loginPasswordAction"]').is_disabled()
-            report["steps"].append(f"Verify the button login is disable? {button}")
-            print(f"Verify the button login is disable? {button}")
+            await page.locator("input[placeholder='Masukkan Password Anda']").click()
+            report["steps"].append("Click the Password field.")
+            print("Click the Password field.")
+
+            verify_button_disable = await page.locator('//*[@id="loginPasswordAction"]').is_disabled()
+            report["steps"].append(f"Verify the button login is disable? {verify_button_disable}")
+            print(f"Verify the button login is disable? {verify_button_disable}")
+
+            verify_error_phoneNumber = await page.get_by_text('Nomor Handphone maksimal 13 karakter').is_visible()
+            report["steps"].append(f"Verify the error message is Nomor Handphone maksimal 13 karakter? {verify_error_phoneNumber}")
+            print(f"Verify the error message is Nomor Handphone maksimal 13 karakter? {verify_error_phoneNumber}")
             
-            # Send report to telegram
+            # Simpan screenshot
             await page.screenshot(path=screenshot_filename, full_page=False)
             report["screenshot"] = screenshot_filename
 
@@ -90,7 +98,7 @@ async def open_bebeclub():
             await browser.close()
             report["steps"].append("Close the browser.")
 
-            # Save report to json file
+            # Simpan report ke file JSON
             with open(report_filename, "w") as f:
                 json.dump(report, f, indent=4)
 
@@ -102,7 +110,7 @@ async def open_bebeclub():
                 # Change the caption
                 caption_time = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
                 caption_steps = "\n".join([f"{idx+1}. {step}" for idx, step in enumerate(report["steps"])])
-                caption = f"Login only input password: {report['status']}\n\nTest step:\n{caption_steps}\n\nCreate on:{caption_time}"
+                caption = f"Login with invalid phone number (>13 digits): {report['status']}\n\nTest step:\n{caption_steps}\n\nCreate on:{caption_time}"
                 
                 # Send photo to telegram
                 response = send_telegram_photo(screenshot_filename, caption=caption)

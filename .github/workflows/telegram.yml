@@ -57,3 +57,19 @@ jobs:
             CHAT_ID: ${{ secrets.CHAT_ID }}
             PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
             PASSWORD: ${{ secrets.PASSWORD }}
+
+      - name: Login only input password
+        run: python telegramReports/login_with_invalid_phoneNumber.py
+        env:
+            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+            CHAT_ID: ${{ secrets.CHAT_ID }}
+            PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+            PASSWORD: ${{ secrets.PASSWORD }}
+
+      - name: Login only input password
+        run: python telegramReports/login_with_invalid_phoneNumber2.py
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
