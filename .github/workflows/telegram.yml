@@ -24,6 +24,7 @@ jobs:
           playwright install
           pip install requests
           pip install requests playwright python-dotenv
+          pip install pytz
 
       - name: Print working directory
         run: pwd
