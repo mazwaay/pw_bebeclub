@@ -7,6 +7,7 @@ import login_only_input_phoneNumber
 import login_password
 import login_with_invalid_phoneNumber
 import login_with_invalid_phoneNumber2
+import update_time_zone
 
 # Fungsi untuk menjalankan setiap file Playwright
 async def run_all():
@@ -16,6 +17,7 @@ async def run_all():
         await login_password.open_bebeclub()
         await login_with_invalid_phoneNumber.open_bebeclub()
         await login_with_invalid_phoneNumber2.open_bebeclub()
+        await update_time_zone.open_bebeclub()
 
 if __name__ == "__main__":
     asyncio.run(run_all())

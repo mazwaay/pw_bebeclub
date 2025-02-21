@@ -2,7 +2,7 @@ name: Playwright CI with Telegram Reporting
 
 on:
   schedule:
-    - cron: '0 23 * * *'  # Eksekusi setiap hari jam 06 WIB (23:00 UTC)
+    - cron: '0 23 * * *'  # Eksekusi setiap hari jam 06:00 WIB (23:00 UTC)
   workflow_dispatch:  # Memungkinkan eksekusi manual
 
 jobs:
