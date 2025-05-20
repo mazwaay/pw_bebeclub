@@ -5,7 +5,7 @@ import datetime
 from playwright.async_api import async_playwright
 import asyncio
 from dotenv import load_dotenv
-import pytz  # Import pytz for timezone handling
+import pytz
 
 # Load environment variables
 load_dotenv()
